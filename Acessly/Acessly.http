@@ -1,0 +1,6 @@
+@Acessly_HostAddress = http://localhost:5212
+
+GET {{Acessly_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
