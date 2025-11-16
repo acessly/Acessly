@@ -1,0 +1,28 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model EmpresaViewModel
+@{
+    ViewData["Title"] = "Detalhes da Empresa";
+}
+
+<div class="card-glass mb-4" style="max-width: 620px; margin:auto;">
+    <h3 class="fw-bold mb-3"><i class="bi bi-buildings"></i> Detalhes da Empresa</h3>
+    <dl class="row mb-0">
+        <dt class="col-sm-4">Nome:</dt>
+        <dd class="col-sm-8">@Model.Nome</dd>
+        <dt class="col-sm-4">Setor:</dt>
+        <dd class="col-sm-8">@Model.Setor</dd>
+        <dt class="col-sm-4">Nível Acessibilidade:</dt>
+        <dd class="col-sm-8">@Model.NivelAcessibilidade</dd>
+        <dt class="col-sm-4">Site:</dt>
+        <dd class="col-sm-8">
+            @if (!string.IsNullOrWhiteSpace(Model.Site))
+            {
+                <a href="@Model.Site" target="_blank" class="btn btn-sm btn-white"><i class="bi bi-globe"></i> Site</a>
+            }
+        </dd>
+        <dt class="col-sm-4">Descrição:</dt>
+        <dd class="col-sm-8">@Model.Descricao</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.IdEmpresa" class="btn btn-outline-light mt-3"><i class="bi bi-pencil"></i> Editar</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3"><i class="bi bi-arrow-left"></i> Voltar</a>
+</div>

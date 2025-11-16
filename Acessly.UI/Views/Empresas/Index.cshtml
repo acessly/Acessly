@@ -1,0 +1,54 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model List<EmpresaViewModel>
+@{
+    ViewData["Title"] = "Empresas";
+}
+
+<div class="card-glass mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold mb-0"><i class="bi bi-buildings"></i> Empresas</h2>
+            <p class="text-white-50 mb-0">Veja e administre todas as empresas cadastradas no sistema.</p>
+        </div>
+        <div>
+            <a class="btn btn-white" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> Nova Empresa</a>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive card-glass mb-4">
+    <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th><i class="bi bi-building"></i> Nome</th>
+                <th>Setor</th>
+                <th><i class="bi bi-star"></i> Nível Acessibilidade</th>
+                <th>Site</th>
+                <th class="text-end">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empresa in Model)
+            {
+                <tr>
+                    <td>@empresa.IdEmpresa</td>
+                    <td>@empresa.Nome</td>
+                    <td>@empresa.Setor</td>
+                    <td>@empresa.NivelAcessibilidade</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(empresa.Site))
+                        {
+                            <a href="@empresa.Site" target="_blank" class="btn btn-sm btn-white"><i class="bi bi-globe"></i></a>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Details", new { id = empresa.IdEmpresa })" title="Detalhes"><i class="bi bi-eye"></i></a>
+                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Edit", new { id = empresa.IdEmpresa })" title="Editar"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-outline-danger btn-sm" href="@Url.Action("Delete", new { id = empresa.IdEmpresa })" title="Excluir"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

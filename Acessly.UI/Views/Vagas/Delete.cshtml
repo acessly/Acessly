@@ -1,0 +1,17 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model VagaViewModel
+@{
+    ViewData["Title"] = "Excluir Vaga";
+}
+
+<div class="card-glass mb-4" style="max-width: 600px; margin:auto;">
+    <h3 class="fw-bold mb-3 text-danger"><i class="bi bi-trash"></i> Excluir Vaga</h3>
+    <div class="alert alert-danger">
+        Tem certeza que deseja excluir a vaga: <strong>@Model.Titulo</strong>?
+    </div>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="IdVaga" />
+        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Excluir</button>
+        <a asp-action="Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Cancelar</a>
+    </form>
+</div>

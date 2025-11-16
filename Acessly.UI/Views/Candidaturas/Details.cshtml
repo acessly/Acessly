@@ -1,0 +1,21 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model CandidaturaViewModel
+@{
+    ViewData["Title"] = "Detalhes da Candidatura";
+}
+
+<div class="card-glass mb-4" style="max-width: 620px; margin:auto;">
+    <h3 class="fw-bold mb-3"><i class="bi bi-send-check"></i> Detalhes da Candidatura</h3>
+    <dl class="row mb-0">
+        <dt class="col-sm-4">ID Candidato:</dt>
+        <dd class="col-sm-8">@Model.IdCandidato</dd>
+        <dt class="col-sm-4">ID Vaga:</dt>
+        <dd class="col-sm-8">@Model.IdVaga</dd>
+        <dt class="col-sm-4">Data da Candidatura:</dt>
+        <dd class="col-sm-8">@Model.DataCandidatura.ToString("dd/MM/yyyy")</dd>
+        <dt class="col-sm-4">Status:</dt>
+        <dd class="col-sm-8">@Model.Status</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.IdCandidatura" class="btn btn-outline-light mt-3"><i class="bi bi-pencil"></i> Editar</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3"><i class="bi bi-arrow-left"></i> Voltar</a>
+</div>

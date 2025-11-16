@@ -1,0 +1,33 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model SuporteEmpresaViewModel
+@{
+    ViewData["Title"] = "Editar Suporte Empresa";
+}
+
+<div class="card-glass mb-4" style="max-width: 600px; margin:auto;">
+    <h2 class="fw-bold mb-2"><i class="bi bi-pencil-square"></i> Editar Suporte</h2>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="IdSuporte" />
+        <div class="mb-3">
+            <label asp-for="IdEmpresa" class="form-label"></label>
+            <input asp-for="IdEmpresa" type="number" class="form-control" />
+            <span asp-validation-for="IdEmpresa" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TipoSuporte" class="form-label"></label>
+            <input asp-for="TipoSuporte" class="form-control" />
+            <span asp-validation-for="TipoSuporte" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Descricao" class="form-label"></label>
+            <textarea asp-for="Descricao" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="Descricao" class="text-danger small"></span>
+        </div>
+        <button type="submit" class="btn btn-white mt-2"><i class="bi bi-check-circle"></i> Salvar Alterações</button>
+        <a asp-action="Index" class="btn btn-secondary mt-2"><i class="bi bi-arrow-left"></i> Cancelar</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

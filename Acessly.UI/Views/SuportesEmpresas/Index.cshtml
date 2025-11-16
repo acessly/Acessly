@@ -1,0 +1,45 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model List<SuporteEmpresaViewModel>
+@{
+    ViewData["Title"] = "Suportes Empresa";
+}
+
+<div class="card-glass mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold mb-0"><i class="bi bi-life-preserver"></i> Suportes Empresa</h2>
+            <p class="text-white-50 mb-0">Gerencie os tipos de suporte oferecidos para empresas.</p>
+        </div>
+        <div>
+            <a class="btn btn-white" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> Novo Suporte</a>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive card-glass mb-4">
+    <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo Suporte</th>
+                <th>Descrição</th>
+                <th class="text-end">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var suporte in Model)
+            {
+                <tr>
+                    <td>@suporte.IdSuporte</td>
+                    <td>@suporte.TipoSuporte</td>
+                    <td>@suporte.Descricao</td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Details", new { id = suporte.IdSuporte })" title="Detalhes"><i class="bi bi-eye"></i></a>
+                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Edit", new { id = suporte.IdSuporte })" title="Editar"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-outline-danger btn-sm" href="@Url.Action("Delete", new { id = suporte.IdSuporte })" title="Excluir"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

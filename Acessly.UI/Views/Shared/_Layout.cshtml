@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Acessly</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="bg-black text-light d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-light shadow-sm mb-2">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="@Url.Action("Index", "Home")">
+                <span class="fw-bold fs-4 text-white"><i class="bi bi-award"></i> Acessly</span>
+                <span class="small text-muted ms-2">Gestão Acessível</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navAcessly" aria-controls="navAcessly" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-end" id="navAcessly">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Usuarios")"><i class="bi bi-person-crop-circle"></i> Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Empresas")"><i class="bi bi-buildings"></i> Empresas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Candidatos")"><i class="bi bi-people"></i> Candidatos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Vagas")"><i class="bi bi-search"></i> Vagas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Candidaturas")"><i class="bi bi-send-check"></i> Candidaturas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "SuportesEmpresas")"><i class="bi bi-shield-check"></i> Suportes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container flex-grow-1 py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-black text-light text-center py-3 mt-auto border-top border-light">
+        &copy; 2025 Acessly - Plataforma de Gestão Acessível
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

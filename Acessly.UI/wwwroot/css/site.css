@@ -1,0 +1,52 @@
+body.bg-black {
+    background: linear-gradient(115deg, #101010 0%, #242424 100%);
+    color: #f2f2f2;
+}
+
+.card-glass {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    border: 1px solid rgba(220,220,220, 0.10);
+    box-shadow: 0 8px 24px rgba(20,20,20,0.65);
+    backdrop-filter: blur(14px);
+    color: #fff;
+    margin-bottom: 22px;
+    padding: 26px 18px;
+    transition: box-shadow 0.2s;
+}
+
+    .card-glass:hover {
+        box-shadow: 0 12px 44px rgba(100,100,100,0.17);
+    }
+
+.nav-link, .navbar-brand {
+    color: #fff !important;
+    transition: color 0.17s;
+}
+
+    .nav-link:hover, .navbar-brand:hover {
+        color: #ededed !important;
+    }
+
+.btn-white, .btn-outline-light {
+    color: #222 !important;
+    background: #fff !important;
+    border-color: #fff;
+    font-weight: 500;
+}
+
+    .btn-white:hover, .btn-outline-light:hover {
+        background: #ededed !important;
+        color: #101010 !important;
+    }
+
+.card .bi {
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.table-dark {
+    background: rgba(18, 18, 18, 0.16);
+}

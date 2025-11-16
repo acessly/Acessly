@@ -1,0 +1,46 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model EmpresaViewModel
+@{
+    ViewData["Title"] = "Nova Empresa";
+}
+
+<div class="card-glass mb-4" style="max-width: 700px; margin:auto;">
+    <h2 class="fw-bold mb-2"><i class="bi bi-buildings"></i> Criar Empresa</h2>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Nome" class="form-label"></label>
+            <input asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Setor" class="form-label"></label>
+            <input asp-for="Setor" class="form-control" />
+            <span asp-validation-for="Setor" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NivelAcessibilidade" class="form-label"></label>
+            <select asp-for="NivelAcessibilidade" class="form-select">
+                <option value="Alto">Alto</option>
+                <option value="Medio">Médio</option>
+                <option value="Baixo">Baixo</option>
+            </select>
+            <span asp-validation-for="NivelAcessibilidade" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Site" class="form-label"></label>
+            <input asp-for="Site" class="form-control" />
+            <span asp-validation-for="Site" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Descricao" class="form-label"></label>
+            <textarea asp-for="Descricao" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="Descricao" class="text-danger small"></span>
+        </div>
+        <button type="submit" class="btn btn-white mt-2"><i class="bi bi-check-circle"></i> Salvar</button>
+        <a asp-action="Index" class="btn btn-secondary mt-2"><i class="bi bi-arrow-left"></i> Cancelar</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

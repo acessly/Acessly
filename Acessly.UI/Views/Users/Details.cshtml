@@ -1,0 +1,30 @@
+﻿@using Acessly.UI.Models.ViewModels
+@model UsuarioViewModel
+@{
+    ViewData["Title"] = "Detalhes do Usuário";
+}
+
+<div class="card-glass mb-4" style="max-width: 540px; margin:auto;">
+    <h3 class="fw-bold mb-3"><i class="bi bi-person-lines-fill"></i> Detalhes do Usuário</h3>
+    <dl class="row mb-0">
+        <dt class="col-sm-4">Nome:</dt>
+        <dd class="col-sm-8">@Model.Nome</dd>
+
+        <dt class="col-sm-4">Email:</dt>
+        <dd class="col-sm-8">@Model.Email</dd>
+
+        <dt class="col-sm-4">Tipo:</dt>
+        <dd class="col-sm-8">@Model.TipoUsuario</dd>
+
+        <dt class="col-sm-4">Cidade:</dt>
+        <dd class="col-sm-8">@Model.Cidade</dd>
+
+        <dt class="col-sm-4">Estado:</dt>
+        <dd class="col-sm-8">@Model.Estado</dd>
+
+        <dt class="col-sm-4">Telefone:</dt>
+        <dd class="col-sm-8">@Model.Telefone</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.IdUsuario" class="btn btn-outline-light mt-3"><i class="bi bi-pencil"></i> Editar</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3"><i class="bi bi-arrow-left"></i> Voltar</a>
+</div>
