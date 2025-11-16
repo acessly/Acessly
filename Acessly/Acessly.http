@@ -1,6 +1,308 @@
 @Acessly_HostAddress = http://localhost:5212
 
-GET {{Acessly_HostAddress}}/weatherforecast/
+###############################################
+# USUÁRIOS
+###############################################
+
+### Listar todos os usuários
+GET {{Acessly_HostAddress}}/api/usuarios
 Accept: application/json
 
 ###
+
+### Buscar usuário por ID
+GET {{Acessly_HostAddress}}/api/usuarios/1
+Accept: application/json
+
+###
+
+### Criar novo usuário (Candidato)
+POST {{Acessly_HostAddress}}/api/usuarios
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva@email.com",
+  "senha": "senha123",
+  "tipoUsuario": "Candidato",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "telefone": "(11) 98765-4321"
+}
+
+###
+
+### Atualizar usuário
+PUT {{Acessly_HostAddress}}/api/usuarios/1
+Content-Type: application/json
+
+{
+  "nome": "João Silva Atualizado",
+  "cidade": "Campinas",
+  "estado": "SP",
+  "telefone": "(19) 98888-7777"
+}
+
+###
+
+### Deletar usuário
+DELETE {{Acessly_HostAddress}}/api/usuarios/1
+
+###############################################
+# EMPRESAS
+###############################################
+
+### Listar todas as empresas
+GET {{Acessly_HostAddress}}/api/empresas
+Accept: application/json
+
+###
+
+### Buscar empresa por ID
+GET {{Acessly_HostAddress}}/api/empresas/1
+Accept: application/json
+
+###
+
+### Buscar empresas por setor
+GET {{Acessly_HostAddress}}/api/empresas/setor/Tecnologia
+Accept: application/json
+
+###
+
+### Criar nova empresa
+POST {{Acessly_HostAddress}}/api/empresas
+Content-Type: application/json
+
+{
+  "idUsuario": 2,
+  "nome": "Tech Acessível S.A.",
+  "setor": "Tecnologia",
+  "nivelAcessibilidade": "Alto",
+  "site": "https://techacessivel.com.br",
+  "descricao": "Empresa focada em tecnologia inclusiva"
+}
+
+###
+
+### Atualizar empresa
+PUT {{Acessly_HostAddress}}/api/empresas/1
+Content-Type: application/json
+
+{
+  "nome": "Tech Acessível Atualizada",
+  "setor": "Tecnologia da Informação",
+  "nivelAcessibilidade": "Alto",
+  "site": "https://novotechacessivel.com.br",
+  "descricao": "Descrição atualizada da empresa"
+}
+
+###
+
+### Deletar empresa
+DELETE {{Acessly_HostAddress}}/api/empresas/1
+
+###############################################
+# CANDIDATOS
+###############################################
+
+### Listar todos os candidatos
+GET {{Acessly_HostAddress}}/api/candidatos
+Accept: application/json
+
+###
+
+### Buscar candidato por ID
+GET {{Acessly_HostAddress}}/api/candidatos/1
+Accept: application/json
+
+###
+
+### Buscar candidatos por tipo de deficiência
+GET {{Acessly_HostAddress}}/api/candidatos/deficiencia/Visual
+Accept: application/json
+
+###
+
+### Criar novo candidato
+POST {{Acessly_HostAddress}}/api/candidatos
+Content-Type: application/json
+
+{
+  "idUsuario": 1,
+  "tipoDeficiencia": "Visual",
+  "habilidades": "Java, C#, Python, SQL",
+  "experiencia": "5 anos como desenvolvedor backend",
+  "acessibilidadeNecessaria": "Leitor de tela, contraste alto"
+}
+
+###
+
+### Atualizar candidato
+PUT {{Acessly_HostAddress}}/api/candidatos/1
+Content-Type: application/json
+
+{
+  "tipoDeficiencia": "Visual",
+  "habilidades": "Java, C#, Python, SQL, React",
+  "experiencia": "6 anos como desenvolvedor full-stack",
+  "acessibilidadeNecessaria": "Leitor de tela NVDA, contraste alto"
+}
+
+###
+
+### Deletar candidato
+DELETE {{Acessly_HostAddress}}/api/candidatos/1
+
+###############################################
+# VAGAS
+###############################################
+
+### Listar todas as vagas
+GET {{Acessly_HostAddress}}/api/vagas
+Accept: application/json
+
+###
+
+### Buscar vaga por ID
+GET {{Acessly_HostAddress}}/api/vagas/1
+Accept: application/json
+
+###
+
+### Buscar vagas por empresa
+GET {{Acessly_HostAddress}}/api/vagas/empresa/1
+Accept: application/json
+
+###
+
+### Pesquisar vagas com filtros e paginação
+GET {{Acessly_HostAddress}}/api/vagas/search?titulo=Desenvolvedor&tipo=Remoto&cidade=São Paulo&page=1&pageSize=10
+Accept: application/json
+
+###
+
+### Criar nova vaga
+POST {{Acessly_HostAddress}}/api/vagas
+Content-Type: application/json
+
+{
+  "idEmpresa": 1,
+  "titulo": "Desenvolvedor Backend Sênior",
+  "descricao": "Vaga para desenvolvedor com experiência em .NET e Oracle",
+  "tipoVaga": "Remoto",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "salario": 12000.00,
+  "acessibilidadeOferecida": "Ambiente adaptado, ferramentas assistivas, horário flexível"
+}
+
+###
+
+### Atualizar vaga
+PUT {{Acessly_HostAddress}}/api/vagas/1
+Content-Type: application/json
+
+{
+  "titulo": "Desenvolvedor Backend Sênior - Atualizado",
+  "descricao": "Descrição atualizada da vaga",
+  "tipoVaga": "Hibrido",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "salario": 13500.00,
+  "acessibilidadeOferecida": "Todas as facilidades de acessibilidade"
+}
+
+###
+
+### Deletar vaga
+DELETE {{Acessly_HostAddress}}/api/vagas/1
+
+###############################################
+# CANDIDATURAS
+###############################################
+
+### Listar todas as candidaturas
+GET {{Acessly_HostAddress}}/api/candidaturas
+Accept: application/json
+
+###
+
+### Buscar candidatura por ID
+GET {{Acessly_HostAddress}}/api/candidaturas/1
+Accept: application/json
+
+###
+
+### Buscar candidaturas de um candidato
+GET {{Acessly_HostAddress}}/api/candidaturas/candidato/1
+Accept: application/json
+
+###
+
+### Buscar candidaturas de uma vaga
+GET {{Acessly_HostAddress}}/api/candidaturas/vaga/1
+Accept: application/json
+
+###
+
+### Criar nova candidatura
+POST {{Acessly_HostAddress}}/api/candidaturas
+Content-Type: application/json
+
+{
+  "idCandidato": 1,
+  "idVaga": 1
+}
+
+###
+
+### Atualizar status da candidatura
+PUT {{Acessly_HostAddress}}/api/candidaturas/1/status
+Content-Type: application/json
+
+{
+  "status": "Aprovado"
+}
+
+###
+
+### Deletar candidatura
+DELETE {{Acessly_HostAddress}}/api/candidaturas/1
+
+###############################################
+# SUPORTES EMPRESA
+###############################################
+
+### Listar todos os suportes
+GET {{Acessly_HostAddress}}/api/suportesempresa
+Accept: application/json
+
+###
+
+### Buscar suporte por ID
+GET {{Acessly_HostAddress}}/api/suportesempresa/1
+Accept: application/json
+
+###
+
+### Buscar suportes de uma empresa
+GET {{Acessly_HostAddress}}/api/suportesempresa/empresa/1
+Accept: application/json
+
+###
+
+### Criar novo suporte
+POST {{Acessly_HostAddress}}/api/suportesempresa
+Content-Type: application/json
+
+{
+  "idEmpresa": 1,
+  "tipoSuporte": "Consultoria em Acessibilidade",
+  "descricao": "Avaliação e implementação de práticas de acessibilidade no ambiente de trabalho"
+}
+
+###
+
+### Deletar suporte
+DELETE {{Acessly_HostAddress}}/api/suportesempresa/1

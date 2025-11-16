@@ -62,6 +62,8 @@ public class UsuarioRepository : IUsuarioRepository
 
     public async Task<bool> EmailExistsAsync(string email)
     {
-        return await _context.Usuarios.AnyAsync(u => u.Email == email);
+        var count = await _context.Usuarios.CountAsync(u => u.Email == email);
+        return count > 0;
     }
+
 }
