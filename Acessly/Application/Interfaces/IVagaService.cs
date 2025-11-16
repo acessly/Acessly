@@ -7,6 +7,7 @@ namespace Acessly.Application.Interfaces
     {
         Task<VagaResponseDto> CreateAsync(VagaCreateDto dto);
         Task<VagaResponseDto?> GetByIdAsync(long id);
+        Task<IEnumerable<VagaResponseDto>> GetAllAsync();
         Task<PagedResultDto<VagaResponseDto>> SearchAsync(
             string? titulo,
             string? tipo,

@@ -133,6 +133,13 @@ namespace Acessly.Application.Services
             return vagas.Select(MapToResponse);
         }
 
+        public async Task<IEnumerable<VagaResponseDto>> GetAllAsync()
+        {
+            var vagas = await _repository.GetAllAsync();
+            return vagas.Select(MapToResponse);
+        }
+
+
         private static VagaResponseDto MapToResponse(Vaga vaga) => new()
         {
             IdVaga = vaga.IdVaga,
