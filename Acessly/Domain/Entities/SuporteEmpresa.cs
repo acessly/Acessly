@@ -14,5 +14,11 @@
             if (string.IsNullOrWhiteSpace(TipoSuporte))
                 throw new ArgumentException("Tipo de suporte é obrigatório");
         }
+
+        public void ValidarDescricao()
+        {
+            if (string.IsNullOrWhiteSpace(Descricao))
+                throw new ArgumentException("Descrição é obrigatória");
+        }
     }
 }
