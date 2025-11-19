@@ -7,51 +7,144 @@ namespace Acessly.UI.Controllers
     {
         private readonly HttpClient _client;
 
-        public UsuariosController(IHttpClientFactory factory)
+        public UsuariosController(IHttpClientFactory httpClientFactory)
         {
-            _client = factory.CreateClient("AcesslyApi");
+            _client = httpClientFactory.CreateClient("AcesslyApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var usuarios = await _client.GetFromJsonAsync<List<UsuarioViewModel>>("/api/usuarios");
-            return View(usuarios);
+            try
+            {
+                var usuarios = await _client.GetFromJsonAsync<List<UsuarioViewModel>>("api/usuarios");
+                return View(usuarios ?? new List<UsuarioViewModel>());
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewBag.Error = $"Erro ao conectar com a API: {ex.Message}";
+                return View(new List<UsuarioViewModel>());
+            }
+        }
+
+        public IActionResult Create()
+        {
+            return View(new UsuarioViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(UsuarioViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            try
+            {
+                var response = await _client.PostAsJsonAsync("api/usuarios", model);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("", $"Erro ao criar usuário: {errorContent}");
+                return View(model);
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError("", $"Erro de conexão: {ex.Message}");
+                return View(model);
+            }
         }
 
         public async Task<IActionResult> Details(long id)
         {
-            var usuario = await _client.GetFromJsonAsync<UsuarioViewModel>($"/api/usuarios/{id}");
-            return View(usuario);
-        }
-
-        public IActionResult Create() => View();
-
-        [HttpPost]
-        public async Task<IActionResult> Create(UsuarioViewModel model)
-        {
-            if (!ModelState.IsValid) return View(model);
-            await _client.PostAsJsonAsync("/api/usuarios", model);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var usuario = await _client.GetFromJsonAsync<UsuarioViewModel>($"api/usuarios/{id}");
+                return View(usuario);
+            }
+            catch (HttpRequestException)
+            {
+                return NotFound();
+            }
         }
 
         public async Task<IActionResult> Edit(long id)
         {
-            var usuario = await _client.GetFromJsonAsync<UsuarioViewModel>($"/api/usuarios/{id}");
-            return View(usuario);
+            try
+            {
+                var usuario = await _client.GetFromJsonAsync<UsuarioViewModel>($"api/usuarios/{id}");
+                return View(usuario);
+            }
+            catch (HttpRequestException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(long id, UsuarioViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UsuarioViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            await _client.PutAsJsonAsync($"/api/usuarios/{id}", model);
-            return RedirectToAction(nameof(Index));
+            if (!ModelState.IsValid)
+                return View(model);
+
+            try
+            {
+                var response = await _client.PutAsJsonAsync($"api/usuarios/{model.IdUsuario}", model);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("", $"Erro ao atualizar: {errorContent}");
+                return View(model);
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError("", $"Erro de conexão: {ex.Message}");
+                return View(model);
+            }
         }
 
         public async Task<IActionResult> Delete(long id)
         {
-            await _client.DeleteAsync($"/api/usuarios/{id}");
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var usuario = await _client.GetFromJsonAsync<UsuarioViewModel>($"api/usuarios/{id}");
+                return View(usuario);
+            }
+            catch (HttpRequestException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            try
+            {
+                var response = await _client.DeleteAsync($"api/usuarios/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                ViewBag.Error = "Erro ao excluir usuário";
+                return View();
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewBag.Error = $"Erro de conexão: {ex.Message}";
+                return View();
+            }
         }
     }
 }

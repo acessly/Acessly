@@ -1,49 +1,58 @@
 ﻿@using Acessly.UI.Models.ViewModels
 @model List<CandidaturaViewModel>
 @{
-    ViewData["Title"] = "Candidaturas";
+    ViewData["Title"] = "Lista de Candidaturas";
 }
 
 <div class="card-glass mb-4">
     <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <h2 class="fw-bold mb-0"><i class="bi bi-send-check"></i> Candidaturas</h2>
-            <p class="text-white-50 mb-0">Gerencie os processos de candidatura cadastrados.</p>
-        </div>
-        <div>
-            <a class="btn btn-white" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> Nova Candidatura</a>
-        </div>
+        <h2 class="fw-bold mb-0"><i class="bi bi-list-ul"></i> Candidaturas</h2>
+        <a class="btn btn-white" asp-action="Create"><i class="bi bi-plus-lg"></i> Nova Candidatura</a>
     </div>
 </div>
 
-<div class="table-responsive card-glass mb-4">
-    <table class="table table-dark table-hover align-middle mb-0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>ID Candidato</th>
-                <th>ID Vaga</th>
-                <th>Data</th>
-                <th>Status</th>
-                <th class="text-end">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive card-glass mb-4">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
                 <tr>
-                    <td>@item.IdCandidatura</td>
-                    <td>@item.IdCandidato</td>
-                    <td>@item.IdVaga</td>
-                    <td>@item.DataCandidatura.ToString("dd/MM/yyyy")</td>
-                    <td>@item.Status</td>
-                    <td class="text-end">
-                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Details", new { id = item.IdCandidatura })"><i class="bi bi-eye"></i></a>
-                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Edit", new { id = item.IdCandidatura })"><i class="bi bi-pencil"></i></a>
-                        <a class="btn btn-outline-danger btn-sm" href="@Url.Action("Delete", new { id = item.IdCandidatura })"><i class="bi bi-trash"></i></a>
-                    </td>
+                    <th>ID</th>
+                    <th>Candidato</th>
+                    <th>Vaga</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdCandidatura</td>
+                        <td>@item.IdCandidato</td>
+                        <td>@item.IdVaga</td>
+                        <td>@item.DataCandidatura.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Status</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-light btn-sm" asp-action="Details" asp-route-id="@item.IdCandidatura"><i class="bi bi-eye"></i></a>
+                            <a class="btn btn-outline-light btn-sm" asp-action="Edit" asp-route-id="@item.IdCandidatura"><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdCandidatura"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="card-glass text-center p-4">
+        <p class="text-white-50 mb-0">Nenhuma candidatura cadastrada ainda.</p>
+    </div>
+}

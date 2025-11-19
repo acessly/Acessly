@@ -14,7 +14,8 @@ namespace Acessly.UI.Models.ViewModels
 
         public DateTime DataCandidatura { get; set; }
 
+        [Required]
         [StringLength(20)]
-        public string Status { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 }

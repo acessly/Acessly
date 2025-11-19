@@ -5,13 +5,38 @@
 }
 
 <div class="card-glass mb-4" style="max-width: 600px; margin:auto;">
-    <h3 class="fw-bold mb-3 text-danger"><i class="bi bi-trash"></i> Excluir Empresa</h3>
+    <h3 class="fw-bold mb-3 text-danger">
+        <i class="bi bi-exclamation-triangle"></i> Excluir Empresa
+    </h3>
+
     <div class="alert alert-danger">
-        Tem certeza que deseja excluir a empresa <strong>@Model.Nome</strong>?
+        <strong>Atenção!</strong> Você tem certeza que deseja excluir esta empresa?
+        <br>Esta ação não pode ser desfeita.
     </div>
+
+    <dl class="row mb-4">
+        <dt class="col-sm-4">ID</dt>
+        <dd class="col-sm-8">@Model.IdEmpresa</dd>
+
+        <dt class="col-sm-4">Nome</dt>
+        <dd class="col-sm-8"><strong>@Model.Nome</strong></dd>
+
+        <dt class="col-sm-4">Setor</dt>
+        <dd class="col-sm-8">@Model.Setor</dd>
+
+        <dt class="col-sm-4">Acessibilidade</dt>
+        <dd class="col-sm-8">@Model.NivelAcessibilidade</dd>
+    </dl>
+
     <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="IdEmpresa" />
-        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Excluir</button>
-        <a asp-action="Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Cancelar</a>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Confirmar Exclusão
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Cancelar
+            </a>
+        </div>
     </form>
 </div>

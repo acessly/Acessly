@@ -25,12 +25,12 @@ namespace Acessly.UI.Models.ViewModels
         public string TipoUsuario { get; set; }
 
         [StringLength(100)]
-        public string Cidade { get; set; }
+        public string? Cidade { get; set; }
 
         [StringLength(50)]
-        public string Estado { get; set; }
+        public string? Estado { get; set; }
 
         [StringLength(20)]
-        public string Telefone { get; set; }
+        public string? Telefone { get; set; }
     }
 }

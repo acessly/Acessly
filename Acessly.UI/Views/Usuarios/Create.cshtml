@@ -6,7 +6,14 @@
 
 <div class="card-glass mb-4" style="max-width: 640px; margin:auto;">
     <h2 class="fw-bold mb-2"><i class="bi bi-person-plus"></i> Criar Usuário</h2>
+
+    @* Exibe mensagem geral de erro do ModelState *@
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
     <form asp-action="Create" method="post" class="mt-2">
+
+        @Html.AntiForgeryToken()
+
         <div class="mb-3">
             <label asp-for="Nome" class="form-label"></label>
             <input asp-for="Nome" class="form-control" />
@@ -25,6 +32,7 @@
         <div class="mb-3">
             <label asp-for="TipoUsuario" class="form-label"></label>
             <select asp-for="TipoUsuario" class="form-select">
+                <option value="">-- Selecione --</option>
                 <option value="Candidato">Candidato</option>
                 <option value="Empresa">Empresa</option>
             </select>

@@ -13,9 +13,9 @@ namespace Acessly.Application.Services
         private readonly IVagaRepository _vagaRepository;
 
         public CandidaturaService(
-        ICandidaturaRepository repository,
-        ICandidatoRepository candidatoRepository,
-        IVagaRepository vagaRepository)
+            ICandidaturaRepository repository,
+            ICandidatoRepository candidatoRepository,
+            IVagaRepository vagaRepository)
         {
             _repository = repository;
             _candidatoRepository = candidatoRepository;
@@ -24,6 +24,10 @@ namespace Acessly.Application.Services
 
         public async Task<CandidaturaResponseDto> CreateAsync(CandidaturaCreateDto dto)
         {
+            // Validação dos parâmetros para garantir que IDs sejam válidos
+            if (dto.IdCandidato <= 0 || dto.IdVaga <= 0)
+                throw new ArgumentException("idCandidato e idVaga devem ser maiores que zero.");
+
             // Validação: candidato existe?
             var candidato = await _candidatoRepository.GetByIdAsync(dto.IdCandidato);
             if (candidato == null)
@@ -44,7 +48,7 @@ namespace Acessly.Application.Services
                 IdCandidato = dto.IdCandidato,
                 IdVaga = dto.IdVaga,
                 DataCandidatura = DateTime.Now,
-                Status = StatusCandidatura.EmAnalise
+                Status = StatusCandidatura.EmAnalise // Status inicial definido diretamente
             };
 
             var created = await _repository.AddAsync(candidatura);
@@ -70,11 +74,11 @@ namespace Acessly.Application.Services
             if (candidatura == null)
                 throw new KeyNotFoundException($"Candidatura com ID {id} não encontrada");
 
-            // Converter string para enum
+            // Converter string para enum com verificação
             if (!Enum.TryParse<StatusCandidatura>(dto.Status, out var status))
                 throw new ArgumentException("Status inválido");
 
-            // Usar os métodos de regra de negócio da entidade
+            // Regras de negócio para aprovação/reprovação
             if (status == StatusCandidatura.Aprovado)
                 candidatura.Aprovar();
             else if (status == StatusCandidatura.Reprovado)

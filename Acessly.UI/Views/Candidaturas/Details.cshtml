@@ -4,18 +4,25 @@
     ViewData["Title"] = "Detalhes da Candidatura";
 }
 
-<div class="card-glass mb-4" style="max-width: 620px; margin:auto;">
-    <h3 class="fw-bold mb-3"><i class="bi bi-send-check"></i> Detalhes da Candidatura</h3>
+<div class="card-glass mb-4" style="max-width: 600px; margin:auto;">
+    <h3 class="fw-bold mb-3"><i class="bi bi-info-circle"></i> Detalhes da Candidatura</h3>
     <dl class="row mb-0">
-        <dt class="col-sm-4">ID Candidato:</dt>
+        <dt class="col-sm-4">ID</dt>
+        <dd class="col-sm-8">@Model.IdCandidatura</dd>
+
+        <dt class="col-sm-4">Candidato</dt>
         <dd class="col-sm-8">@Model.IdCandidato</dd>
-        <dt class="col-sm-4">ID Vaga:</dt>
+
+        <dt class="col-sm-4">Vaga</dt>
         <dd class="col-sm-8">@Model.IdVaga</dd>
-        <dt class="col-sm-4">Data da Candidatura:</dt>
+
+        <dt class="col-sm-4">Data</dt>
         <dd class="col-sm-8">@Model.DataCandidatura.ToString("dd/MM/yyyy")</dd>
-        <dt class="col-sm-4">Status:</dt>
+
+        <dt class="col-sm-4">Status</dt>
         <dd class="col-sm-8">@Model.Status</dd>
     </dl>
     <a asp-action="Edit" asp-route-id="@Model.IdCandidatura" class="btn btn-outline-light mt-3"><i class="bi bi-pencil"></i> Editar</a>
+    <a asp-action="Delete" asp-route-id="@Model.IdCandidatura" class="btn btn-outline-danger mt-3"><i class="bi bi-trash"></i> Excluir</a>
     <a asp-action="Index" class="btn btn-secondary mt-3"><i class="bi bi-arrow-left"></i> Voltar</a>
 </div>

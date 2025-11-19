@@ -29,7 +29,6 @@ builder.Services.AddScoped<IVagaService, VagaService>();
 builder.Services.AddScoped<ICandidaturaService, CandidaturaService>();
 builder.Services.AddScoped<ISuporteEmpresaService, SuporteEmpresaService>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline

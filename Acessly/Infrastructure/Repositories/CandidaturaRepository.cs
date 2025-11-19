@@ -90,9 +90,13 @@ public class CandidaturaRepository : ICandidaturaRepository
 
     public async Task<bool> ExisteCandidaturaAsync(long idCandidato, long idVaga)
     {
+        if (idCandidato <= 0 || idVaga <= 0)
+            throw new ArgumentException("idCandidato e idVaga devem ser maiores que zero.");
+
         return await _context.Candidaturas
             .AnyAsync(c => c.IdCandidato == idCandidato && c.IdVaga == idVaga);
     }
+
 
     public async Task<IEnumerable<Candidatura>> GetByCandidatoAndStatusAsync(long idCandidato, StatusCandidatura status)
     {

@@ -7,57 +7,119 @@ namespace Acessly.UI.Controllers
     {
         private readonly HttpClient _client;
 
-        public EmpresasController(IHttpClientFactory factory)
+        public EmpresasController(IHttpClientFactory httpClientFactory)
         {
-            _client = factory.CreateClient("AcesslyApi");
+            _client = httpClientFactory.CreateClient("AcesslyApi");
         }
 
-        public async Task<IActionResult> Index(string setor, string nivelAcessibilidade)
+        public async Task<IActionResult> Index()
         {
-            string url = "/api/empresas";
-            if (!string.IsNullOrEmpty(setor))
-                url = $"/api/empresas/setor/{setor}";
-            else if (!string.IsNullOrEmpty(nivelAcessibilidade))
-                url = $"/api/empresas/acessibilidade/{nivelAcessibilidade}";
-
-            var empresas = await _client.GetFromJsonAsync<List<EmpresaViewModel>>(url);
-            return View(empresas);
+            try
+            {
+                var empresas = await _client.GetFromJsonAsync<List<EmpresaViewModel>>("api/empresas");
+                return View(empresas ?? new List<EmpresaViewModel>());
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewBag.Error = $"Erro ao conectar com a API: {ex.Message}";
+                return View(new List<EmpresaViewModel>());
+            }
         }
 
-        public async Task<IActionResult> Details(long id)
+        public IActionResult Create()
         {
-            var empresa = await _client.GetFromJsonAsync<EmpresaViewModel>($"/api/empresas/{id}");
-            return View(empresa);
+            var model = new EmpresaViewModel();
+            return View(model);
         }
-
-        public IActionResult Create() => View();
 
         [HttpPost]
         public async Task<IActionResult> Create(EmpresaViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            await _client.PostAsJsonAsync("/api/empresas", model);
-            return RedirectToAction(nameof(Index));
+            if (!ModelState.IsValid)
+                return View(model);
+
+            try
+            {
+                await _client.PostAsJsonAsync("api/empresas", model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError("", $"Erro ao criar empresa: {ex.Message}");
+                return View(model);
+            }
+        }
+
+        public async Task<IActionResult> Details(long id)
+        {
+            try
+            {
+                var empresa = await _client.GetFromJsonAsync<EmpresaViewModel>($"api/empresas/{id}");
+                return View(empresa);
+            }
+            catch (HttpRequestException)
+            {
+                return NotFound();
+            }
         }
 
         public async Task<IActionResult> Edit(long id)
         {
-            var empresa = await _client.GetFromJsonAsync<EmpresaViewModel>($"/api/empresas/{id}");
-            return View(empresa);
+            try
+            {
+                var empresa = await _client.GetFromJsonAsync<EmpresaViewModel>($"api/empresas/{id}");
+                return View(empresa);
+            }
+            catch (HttpRequestException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(long id, EmpresaViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            await _client.PutAsJsonAsync($"/api/empresas/{id}", model);
-            return RedirectToAction(nameof(Index));
+            if (!ModelState.IsValid)
+                return View(model);
+
+            try
+            {
+                await _client.PutAsJsonAsync($"api/empresas/{id}", model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (HttpRequestException ex)
+            {
+                ModelState.AddModelError("", $"Erro ao atualizar empresa: {ex.Message}");
+                return View(model);
+            }
         }
 
         public async Task<IActionResult> Delete(long id)
         {
-            await _client.DeleteAsync($"/api/empresas/{id}");
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var empresa = await _client.GetFromJsonAsync<EmpresaViewModel>($"api/empresas/{id}");
+                return View(empresa);
+            }
+            catch (HttpRequestException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            try
+            {
+                await _client.DeleteAsync($"api/empresas/{id}");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (HttpRequestException ex)
+            {
+                ViewBag.Error = $"Erro ao excluir empresa: {ex.Message}";
+                return View();
+            }
         }
     }
 }

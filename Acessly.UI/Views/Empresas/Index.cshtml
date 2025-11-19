@@ -11,44 +11,91 @@
             <p class="text-white-50 mb-0">Veja e administre todas as empresas cadastradas no sistema.</p>
         </div>
         <div>
-            <a class="btn btn-white" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> Nova Empresa</a>
+            <a class="btn btn-white" href="/Empresas/Create">
+                <i class="bi bi-plus-lg"></i> Nova Empresa
+            </a>
         </div>
     </div>
 </div>
 
-<div class="table-responsive card-glass mb-4">
-    <table class="table table-dark table-hover align-middle mb-0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th><i class="bi bi-building"></i> Nome</th>
-                <th>Setor</th>
-                <th><i class="bi bi-star"></i> Nível Acessibilidade</th>
-                <th>Site</th>
-                <th class="text-end">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var empresa in Model)
-            {
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle"></i> @ViewBag.Error
+    </div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive card-glass mb-4">
+        <table class="table table-dark table-hover align-middle mb-0">
+            <thead>
                 <tr>
-                    <td>@empresa.IdEmpresa</td>
-                    <td>@empresa.Nome</td>
-                    <td>@empresa.Setor</td>
-                    <td>@empresa.NivelAcessibilidade</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(empresa.Site))
-                        {
-                            <a href="@empresa.Site" target="_blank" class="btn btn-sm btn-white"><i class="bi bi-globe"></i></a>
-                        }
-                    </td>
-                    <td class="text-end">
-                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Details", new { id = empresa.IdEmpresa })" title="Detalhes"><i class="bi bi-eye"></i></a>
-                        <a class="btn btn-outline-light btn-sm" href="@Url.Action("Edit", new { id = empresa.IdEmpresa })" title="Editar"><i class="bi bi-pencil"></i></a>
-                        <a class="btn btn-outline-danger btn-sm" href="@Url.Action("Delete", new { id = empresa.IdEmpresa })" title="Excluir"><i class="bi bi-trash"></i></a>
-                    </td>
+                    <th><i class="bi bi-hash"></i> ID</th>
+                    <th><i class="bi bi-building"></i> Nome</th>
+                    <th><i class="bi bi-briefcase"></i> Setor</th>
+                    <th><i class="bi bi-star"></i> Acessibilidade</th>
+                    <th><i class="bi bi-globe"></i> Site</th>
+                    <th class="text-end">Ações</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var empresa in Model)
+                {
+                    <tr>
+                        <td>@empresa.IdEmpresa</td>
+                        <td>@empresa.Nome</td>
+                        <td>@empresa.Setor</td>
+                        <td>
+                            @if (empresa.NivelAcessibilidade == "Alto")
+                            {
+                                <span class="badge bg-success">Alto</span>
+                            }
+                            else if (empresa.NivelAcessibilidade == "Medio")
+                            {
+                                <span class="badge bg-warning">Médio</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Baixo</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(empresa.Site))
+                            {
+                                <a href="@empresa.Site" target="_blank" class="btn btn-sm btn-outline-light" title="Visitar site">
+                                    <i class="bi bi-box-arrow-up-right"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">-</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-light btn-sm" asp-action="Details" asp-route-id="@empresa.IdEmpresa" title="Ver detalhes">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a class="btn btn-outline-light btn-sm" asp-action="Edit" asp-route-id="@empresa.IdEmpresa" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@empresa.IdEmpresa" title="Excluir">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="card-glass text-center p-5">
+        <i class="bi bi-inbox display-1 text-muted"></i>
+        <p class="text-white-50 mt-3 mb-0">Nenhuma empresa cadastrada ainda.</p>
+        <a class="btn btn-white mt-3" href="/Empresas/Create">
+            <i class="bi bi-plus-lg"></i> Cadastrar Primeira Empresa
+        </a>
+    </div>
+}
