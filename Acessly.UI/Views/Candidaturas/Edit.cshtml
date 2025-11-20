@@ -5,31 +5,36 @@
 }
 
 <div class="card-glass mb-4" style="max-width: 600px; margin:auto;">
-    <h2 class="fw-bold mb-2"><i class="bi bi-pencil"></i> Editar Candidatura</h2>
+    <h2 class="fw-bold mb-2"><i class="bi bi-pencil-square"></i> Editar Candidatura</h2>
 
     <form asp-action="Edit" method="post">
         @Html.AntiForgeryToken()
+
+        <!-- Campo oculto obrigatório para identificação -->
         <input type="hidden" asp-for="IdCandidatura" />
 
         <div class="mb-3">
             <label asp-for="IdCandidato" class="form-label"></label>
-            <input asp-for="IdCandidato" type="number" class="form-control" />
+            <input asp-for="IdCandidato" type="number" class="form-control" readonly />
             <span asp-validation-for="IdCandidato" class="text-danger small"></span>
         </div>
+
         <div class="mb-3">
             <label asp-for="IdVaga" class="form-label"></label>
-            <input asp-for="IdVaga" type="number" class="form-control" />
+            <input asp-for="IdVaga" type="number" class="form-control" readonly />
             <span asp-validation-for="IdVaga" class="text-danger small"></span>
         </div>
+
         <div class="mb-3">
             <label asp-for="DataCandidatura" class="form-label"></label>
             <input asp-for="DataCandidatura" type="date" class="form-control" />
             <span asp-validation-for="DataCandidatura" class="text-danger small"></span>
         </div>
+
         <div class="mb-3">
             <label asp-for="Status" class="form-label"></label>
             <select asp-for="Status" class="form-select">
-                <option value="">-- Selecione --</option>
+                <option value="">-- Selecione o Status --</option>
                 <option value="EmAnalise">Em Análise</option>
                 <option value="Aprovado">Aprovado</option>
                 <option value="Reprovado">Rejeitado</option>
@@ -37,7 +42,7 @@
             <span asp-validation-for="Status" class="text-danger small"></span>
         </div>
 
-        <button type="submit" class="btn btn-white mt-2"><i class="bi bi-check-circle"></i> Salvar</button>
+        <button type="submit" class="btn btn-white mt-2"><i class="bi bi-check-circle"></i> Salvar Alterações</button>
         <a asp-action="Index" class="btn btn-secondary mt-2"><i class="bi bi-arrow-left"></i> Cancelar</a>
     </form>
 </div>

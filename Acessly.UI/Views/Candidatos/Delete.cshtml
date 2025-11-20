@@ -7,11 +7,12 @@
 <div class="card-glass mb-4" style="max-width: 600px; margin:auto;">
     <h3 class="fw-bold mb-3 text-danger"><i class="bi bi-trash"></i> Excluir Candidato</h3>
     <div class="alert alert-danger">
-        Tem certeza que deseja excluir esse candidato: <strong>@Model.TipoDeficiencia</strong>?
+        Tem certeza que deseja excluir o candidato com deficiência <strong>@Model.TipoDeficiencia</strong>?
     </div>
     <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="IdCandidato" />
-        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Excluir</button>
+        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Confirmar Exclusão</button>
         <a asp-action="Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Cancelar</a>
     </form>
 </div>

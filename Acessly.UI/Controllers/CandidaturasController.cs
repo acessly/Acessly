@@ -1,4 +1,4 @@
-﻿    using Acessly.UI.Models.ViewModels;
+﻿using Acessly.UI.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Acessly.UI.Controllers
@@ -12,6 +12,7 @@ namespace Acessly.UI.Controllers
             _client = httpClientFactory.CreateClient("AcesslyApi");
         }
 
+        // Lista todas as candidaturas
         public async Task<IActionResult> Index()
         {
             try
@@ -26,11 +27,13 @@ namespace Acessly.UI.Controllers
             }
         }
 
+        // Exibe o formulário de criação
         public IActionResult Create()
         {
             return View(new CandidaturaViewModel());
         }
 
+        // Cria uma nova candidatura
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CandidaturaViewModel model)
@@ -50,16 +53,20 @@ namespace Acessly.UI.Controllers
             }
             catch (HttpRequestException ex)
             {
-                ModelState.AddModelError("", $"Erro de conexão: {ex.Message}");
+                ModelState.AddModelError("", $"Erro na conexão: {ex.Message}");
                 return View(model);
             }
         }
 
+        // Exibe detalhes de uma candidatura
         public async Task<IActionResult> Details(long id)
         {
             try
             {
                 var candidatura = await _client.GetFromJsonAsync<CandidaturaViewModel>($"api/candidaturas/{id}");
+                if (candidatura == null)
+                    return NotFound();
+
                 return View(candidatura);
             }
             catch (HttpRequestException)
@@ -68,11 +75,15 @@ namespace Acessly.UI.Controllers
             }
         }
 
+        // Carrega os dados da candidatura para edição (GET)
         public async Task<IActionResult> Edit(long id)
         {
             try
             {
                 var candidatura = await _client.GetFromJsonAsync<CandidaturaViewModel>($"api/candidaturas/{id}");
+                if (candidatura == null)
+                    return NotFound();
+
                 return View(candidatura);
             }
             catch (HttpRequestException)
@@ -81,6 +92,7 @@ namespace Acessly.UI.Controllers
             }
         }
 
+        // Salva a edição (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CandidaturaViewModel model)
@@ -100,16 +112,25 @@ namespace Acessly.UI.Controllers
             }
             catch (HttpRequestException ex)
             {
-                ModelState.AddModelError("", $"Erro de conexão: {ex.Message}");
+                ModelState.AddModelError("", $"Erro na conexão: {ex.Message}");
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Erro inesperado: {ex.Message}");
                 return View(model);
             }
         }
 
+        // Carrega a candidatura para deletar (GET)
         public async Task<IActionResult> Delete(long id)
         {
             try
             {
                 var candidatura = await _client.GetFromJsonAsync<CandidaturaViewModel>($"api/candidaturas/{id}");
+                if (candidatura == null)
+                    return NotFound();
+
                 return View(candidatura);
             }
             catch (HttpRequestException)
@@ -118,6 +139,7 @@ namespace Acessly.UI.Controllers
             }
         }
 
+        // Deleta a candidatura (POST)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

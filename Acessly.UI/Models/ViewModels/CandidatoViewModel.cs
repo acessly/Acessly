@@ -14,13 +14,13 @@ namespace Acessly.UI.Models.ViewModels
         public string TipoDeficiencia { get; set; }
 
         [StringLength(500)]
-        public string Habilidades { get; set; }
+        public string? Habilidades { get; set; }
 
         [StringLength(255)]
-        public string Experiencia { get; set; }
+        public string? Experiencia { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string AcessibilidadeNecessaria { get; set; }
+        public string? AcessibilidadeNecessaria { get; set; }
     }
 }

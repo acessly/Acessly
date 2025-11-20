@@ -30,12 +30,24 @@ namespace Acessly.UI.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CandidatoViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            await _client.PostAsJsonAsync("/api/candidatos", model);
-            return RedirectToAction(nameof(Index));
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var response = await _client.PostAsJsonAsync("/api/candidatos", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var error = await response.Content.ReadAsStringAsync();
+            ModelState.AddModelError(string.Empty, $"Erro ao criar candidato: {error}");
+            return View(model);
         }
+
 
         public async Task<IActionResult> Edit(long id)
         {
@@ -44,12 +56,24 @@ namespace Acessly.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, CandidatoViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            await _client.PutAsJsonAsync($"/api/candidatos/{id}", model);
-            return RedirectToAction(nameof(Index));
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var response = await _client.PutAsJsonAsync($"/api/candidatos/{id}", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var error = await response.Content.ReadAsStringAsync();
+            ModelState.AddModelError(string.Empty, $"Erro ao atualizar candidato: {error}");
+            return View(model);
         }
+
 
         public async Task<IActionResult> Delete(long id)
         {
