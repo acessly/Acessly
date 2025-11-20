@@ -102,6 +102,83 @@ A interface web MVC consome a API através de HttpClient:
 
    - Validação client-side usando jQuery Validation.
 
+## 📈 Diagrama de arquitetura
+
+```text
+┌─────────────────────────────────────────────────────────────────────┐
+│                          CAMADA DE APRESENTAÇÃO                     │
+│                                                                     │
+│  ┌──────────────────────┐              ┌─────────────────────────┐  │
+│  │      Cliente Web     │              │       Swagger UI        │  │
+│  │      (Navegador)     │              │   (Documentação API)    │  │
+│  └──────────┬───────────┘              └───────────┬─────────────┘  │
+│             │                                       │               │
+│             │ HTTP/HTTPS                           │ HTTP/HTTPS     │
+└─────────────┼───────────────────────────────────────┼───────────────┘
+              │                                       │
+              ▼                                       ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                            ACESSLY.UI (MVC)                         │
+│  ┌──────────────────────────────────────────────────────────────┐   │
+│  │  Controllers MVC                                             │   │
+│  │  (UsuariosController, EmpresasController, etc.)              │   │
+│  └──────────────────────┬───────────────────────────────────────┘   │
+│                         │                                           │
+│  ┌──────────────────────▼──────────────────────────────────────┐    │
+│  │  ViewModels (CandidatoViewModel, VagaViewModel, etc.)       │    │
+│  └──────────────────────┬──────────────────────────────────────┘    │
+│                         │                                           │
+│  ┌──────────────────────▼──────────────────────────────────────┐    │
+│  │  Views (Razor) + Bootstrap 5 + jQuery Validation            │    │
+│  └─────────────────────────────────────────────────────────────┘    │
+└─────────────────────────┼───────────────────────────────────────────┘
+                          │
+                          │ HttpClient (REST API Calls)
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                          ACESSLY (API REST)                         │
+│                                                                     │
+│  ┌──────────────────────────────────────────────────────────────┐   │
+│  │  📡 API CONTROLLERS                                          │   |                                   
+│  │  (UsuariosController, CandidatosController, VagasController) │   │
+│  └──────────────────────┬───────────────────────────────────────┘   │
+│                         │                                           │
+│  ┌──────────────────────▼───────────────────────────────────────┐   │
+│  │  🎯 APPLICATION LAYER                                        │  │
+│  │  ├── Services (Business Logic)                               │   │
+│  │  ├── DTOs (Data Transfer Objects)                            │   │
+│  │  ├── Interfaces (Contratos de Serviços)                      │   │
+│  │  └── Exceptions (Tratamento de erros)                        │   │
+│  └──────────────────────┬───────────────────────────────────────┘   │
+│                         │                                           │
+│  ┌──────────────────────▼───────────────────────────────────────┐   │
+│  │  💎 DOMAIN LAYER                                            │    │
+│  │  ├── Entities (Usuario, Candidato, Vaga, Empresa, etc.)      │   │
+│  │  ├── Enums (TipoDeficiencia, StatusCandidatura, etc.)        │   │
+│  │  └── Interfaces (Contratos de Repositórios)                  │   │
+│  └──────────────────────┬───────────────────────────────────────┘   │
+│                         │                                           │
+│  ┌──────────────────────▼───────────────────────────────────────┐   │
+│  │  🗄️ INFRASTRUCTURE LAYER                                     │   │
+│  │  ├── Repositories (Implementação EF Core)                    │   │
+│  │  ├── AcesslyDbContext (Contexto do Banco)                    │   │
+│  │  ├── AcesslyDbContextFactory                                 │   │
+│  │  └── Migrations (Versionamento do Schema)                    │   │
+│  └──────────────────────┬───────────────────────────────────────┘   │
+└─────────────────────────┼───────────────────────────────────────────┘
+                          │
+                          │ Entity Framework Core
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                         🗃️ ORACLE DATABASE                          │
+│                                                                     │
+│             Tabelas: Usuarios, Candidatos, Vagas, Empresas,         |
+│                   Candidaturas, SuportesEmpresa                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
 
 ## ⚙️ Como rodar o projeto
 
