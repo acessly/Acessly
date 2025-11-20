@@ -28,6 +28,81 @@ O Acessly conecta pessoas com deficiência a oportunidades reais de forma inclus
 - Interface responsiva construída com **Bootstrap 5** e Bootstrap Icons.
 - Documentação e testes facilitados com **Swagger** para a API.
 
+### 📁 Estrutura do projeto
+
+A solução está dividida em dois projetos principais:
+
+**Acessly (API)**
+
+A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes responsabilidades
+
+🎯 Application 
+
+   - `DTOs`: objetos para transferência de dados entre camadas, isolando a estrutura interna das entidades.
+
+   - `Exceptions`: classes de exceções customizadas para tratamento de erros específicos da aplicação.
+
+   - `Interfaces`: contratos (interfaces) para serviços da camada de aplicação.
+
+   - `Services`: implementação da lógica de negócio e orquestração entre repositórios e controllers.
+
+🌐 Controllers
+
+   - Endpoints da API RESTful que recebem requisições HTTP.
+
+   - Utilizam serviços da camada Application para processar requests.
+
+   - Retornam DTOs para garantir separação entre entidades de domínio e dados expostos.
+
+💎 Domain Layer
+
+   - `Entities`: entidades de domínio (`Candidato`, `Candidatura`, `Empresa`, `SuporteEmpresa`, `Usuario`, `Vaga`) com regras de negócio e comportamento.
+
+   - `Enums`: enumerações como `TipoDeficiencia`, `StatusCandidatura`, etc., garantindo tipagem forte.
+
+   - `Interfaces`: contratos para repositórios, seguindo o padrão Repository.
+
+🗄️ Infrastructure Layer
+
+   - `Repositories`: implementação dos repositórios usando Entity Framework Core para acesso ao banco Oracle.
+
+   - AcesslyDbContext: contexto do Entity Framework que mapeia entidades para o banco de dados.
+
+   - AcesslyDbContextFactory: factory para criação do DbContext, útil para migrations e testes.
+
+📦 Migrations
+
+   - Scripts de migração do Entity Framework Core para versionamento e evolução do schema do banco de dados Oracle.
+
+---
+
+**Acessly.UI (Aplicação MVC)**
+
+A interface web MVC consome a API através de HttpClient:
+
+🎮 Controllers
+
+   - Controladores MVC que intermediam entre Views e a API.
+
+   - Realizam chamadas HTTP (GET, POST, PUT, DELETE) para os endpoints da API.
+
+   - Tratam erros e validações do lado do servidor.
+
+📋 Models/ViewModels
+
+   - `ViewModels` específicos para as Views, contendo validações via DataAnnotations.
+
+   - Separação entre modelos de domínio (API) e modelos de apresentação (UI).
+
+🎨 Views
+
+   - Views Razor renderizadas no servidor.
+
+   - Interface responsiva construída com Bootstrap 5 e Bootstrap Icons.
+
+   - Validação client-side usando jQuery Validation.
+
+
 ## ⚙️ Como rodar o projeto
 
 Pré-requisitos
@@ -36,7 +111,7 @@ Pré-requisitos
 - Oracle Database acessível e configurado
 - IDE recomendada: Visual Studio 2022 ou Visual Studio Code
 
-### Migrations
+### ⛓️ Migrations
 
 1. Abra o terminal na pasta do projeto **Acessly**:
 
@@ -329,46 +404,48 @@ curl -X DELETE https://localhost:7084/api/usuarios/1
 
 - Listar vagas
 ```bash
-curl -X GET https://localhost:5001/api/vagas -H "Accept: application/json"
+curl -X GET https://localhost:7084/api/vagas -H "Accept: application/json"
 ```
 
 - Criar vaga
 ```bash
-curl -X POST https://localhost:5001/api/vagas \
+curl -X POST https://localhost:7084/api/vagas \
 -H "Content-Type: application/json" \
 -d '{"Titulo":"Desenvolvedor Java","IdEmpresa":1,"Descricao":"Vaga para dev Java com experiência"}'
 ```
 
 - Buscar vaga por Id
 ```bash
-curl -X GET https://localhost:5001/api/vagas/1 -H "Accept: application/json"
+curl -X GET https://localhost:7084/api/vagas/1 -H "Accept: application/json"
 ```
 
 - Atualizar vaga
 ```bash
-curl -X PUT https://localhost:5001/api/vagas/1 \
+curl -X PUT https://localhost:7084/api/vagas/1 \
 -H "Content-Type: application/json" \
 -d '{"IdVaga":1,"Titulo":"Desenvolvedor Java Sênior","IdEmpresa":1,"Descricao":"Atualização da descrição da vaga"}'
 ```
 
 - Deletar vaga
 ```bash
-curl -X DELETE https://localhost:5001/api/vagas/1
+curl -X DELETE https://localhost:7084/api/vagas/1
 ```
 
 - Pesquisar vagas
 ```bash
-curl -X GET https://localhost:5001/api/vagas/search?query=java -H "Accept: application/json"
+curl -X GET https://localhost:7084/api/vagas/search?query=java -H "Accept: application/json"
 ```
 
 - Listar vagas por empresa
 ```bash
-curl -X GET https://localhost:5001/api/vagas/empresa/1 -H "Accept: application/json"
+curl -X GET https://localhost:7084/api/vagas/empresa/1 -H "Accept: application/json"
 ```
 
 ## 📖 Documentação e fluxos visuais
 
 ### 🔍 Swagger
+
+![Imagem](https://drive.google.com/uc?export=view&id=1JzfWPRjFWElm7V9pHELdyJgvgaGzCrFt)
 
 A API possui **Swagger** configurado e disponível em:
 
@@ -377,6 +454,9 @@ A API possui **Swagger** configurado e disponível em:
 - O **Swagger UI** fornece documentação interativa dos endpoints, parâmetros, respostas, além de sample requests, podendo testar diretamente do navegador.
 
 ### 🎨 Aplicação MVC
+
+![Imagem](https://drive.google.com/uc?export=view&id=1eV-gMw71Yq4swrEqY40zKCS5Y5xfbcr0)
+![Imagem](https://drive.google.com/uc?export=view&id=1HJrLCrU5gIvgDCJ-UQxy4m7Ukk4Crwvo)
 
 Ao rodar a aplicação, a interface web estará disponível em `https://localhost:7084`
 
