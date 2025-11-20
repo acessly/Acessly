@@ -36,7 +36,7 @@ A solução está dividida em dois projetos principais:
 
 A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes responsabilidades
 
-🎯 Application 
+🎯 **Application** 
 
    - `DTOs`: objetos para transferência de dados entre camadas, isolando a estrutura interna das entidades.
 
@@ -46,7 +46,7 @@ A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes re
 
    - `Services`: implementação da lógica de negócio e orquestração entre repositórios e controllers.
 
-🌐 Controllers
+🌐 **Controllers**
 
    - Endpoints da API RESTful que recebem requisições HTTP.
 
@@ -54,7 +54,7 @@ A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes re
 
    - Retornam DTOs para garantir separação entre entidades de domínio e dados expostos.
 
-💎 Domain Layer
+💎 **Domain**
 
    - `Entities`: entidades de domínio (`Candidato`, `Candidatura`, `Empresa`, `SuporteEmpresa`, `Usuario`, `Vaga`) com regras de negócio e comportamento.
 
@@ -62,7 +62,7 @@ A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes re
 
    - `Interfaces`: contratos para repositórios, seguindo o padrão Repository.
 
-🗄️ Infrastructure Layer
+🗄️ **Infrastructure**
 
    - `Repositories`: implementação dos repositórios usando Entity Framework Core para acesso ao banco Oracle.
 
@@ -70,7 +70,7 @@ A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes re
 
    - AcesslyDbContextFactory: factory para criação do DbContext, útil para migrations e testes.
 
-📦 Migrations
+📦 **Migrations**
 
    - Scripts de migração do Entity Framework Core para versionamento e evolução do schema do banco de dados Oracle.
 
@@ -80,7 +80,7 @@ A API RESTful em ASP.NET Core segue a arquitetura em camadas com as seguintes re
 
 A interface web MVC consome a API através de HttpClient:
 
-🎮 Controllers
+🎮 **Controllers**
 
    - Controladores MVC que intermediam entre Views e a API.
 
@@ -88,13 +88,13 @@ A interface web MVC consome a API através de HttpClient:
 
    - Tratam erros e validações do lado do servidor.
 
-📋 Models/ViewModels
+📋 **Models/ViewModels**
 
    - `ViewModels` específicos para as Views, contendo validações via DataAnnotations.
 
    - Separação entre modelos de domínio (API) e modelos de apresentação (UI).
 
-🎨 Views
+🎨 **Views**
 
    - Views Razor renderizadas no servidor.
 
