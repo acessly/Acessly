@@ -8,7 +8,6 @@
 
 ## 🧿 Visão geral
 O Acessly é uma plataforma de gestão acessível que integra uma **API RESTful** feita em **ASP.NET Core** com uma **interface web MVC**, fornecendo funcionalidades para gerenciamento de usuários, empresas, candidaturas, vagas e suportes empresariais.
-A aplicação é voltada
 
 ### 👩‍🦽‍➡️ Conectando talentos PCDs a oportunidades reais de trabalho
 
