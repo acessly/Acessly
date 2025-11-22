@@ -517,6 +517,11 @@ curl -X GET https://localhost:7084/api/vagas/search?query=java -H "Accept: appli
 curl -X GET https://localhost:7084/api/vagas/empresa/1 -H "Accept: application/json"
 ```
 
+## 📹 Exemplo de CRUD completo
+
+![crud_net-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/2ba96d1e-c351-4c38-808d-7ecf99b94646)
+
+
 ## 📖 Documentação e fluxos visuais
 
 ### 🔍 Swagger
