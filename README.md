@@ -211,6 +211,18 @@ Configure as variáveis necessárias no `appsettings.json`
 }
 ```
 
+### 🏁 Inicialização
+
+1. Clique com o botão direito do mouse em **Solução 'Acessly' (2 de 2 projetos)**
+
+2. Vá para **Propriedades**
+
+3. Selecione a opção: **Vários projetos de inicialização** e selecione **Iniciar** para ambos os projetos (**Acessly** e **Acessly UI**)
+
+4. Clique em **Apply** e depois em **OK**
+
+5. Aperte F5 para rodar a aplicação e pronto!! O projeto MVC abrirá na porta `https://localhost:7084/`. Se quiser verificar a documentação do Swagger, é só abrir: `http://localhost:5212/index.html`
+
 ## 🌐 Rotas / Endpoints
 
 **API - Candidatos**
